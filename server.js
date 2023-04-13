@@ -28,7 +28,6 @@ const Song = mongoose.model('Song', songSchema);
 app.get('/songs', async (req, res) => {
   try {
     const songs = await Song.find();
-    res.header('Access-Control-Allow-Origin', '*');
     res.json(songs);
   } catch (error) {
     res.status(500).send(error);
@@ -39,7 +38,6 @@ app.post('/songs', async (req, res) => {
   try {
     const song = new Song(req.body);
     await song.save();
-    res.header('Access-Control-Allow-Origin', '*');
     res.json(song);
   } catch (error) {
     res.status(500).send(error);
@@ -51,12 +49,12 @@ app.put('/songs/:id/vote', async (req, res) => {
     const song = await Song.findById(req.params.id);
     song.votes += 1;
     await song.save();
-    res.header('Access-Control-Allow-Origin', '*');
     res.json(song);
   } catch (error) {
     res.status(500).send(error);
   }
 });
+
 
 // Adicione essa linha para servir arquivos estáticos da pasta public
 app.use(express.static(path.join(__dirname, 'public')));
