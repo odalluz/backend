@@ -35,6 +35,7 @@ app.get('/songs', async (req, res) => {
 });
 
 app.post('/songs', async (req, res) => {
+  console.log(req.body);
   try {
     const song = new Song(req.body);
     await song.save();
@@ -54,7 +55,6 @@ app.put('/songs/:id/vote', async (req, res) => {
     res.status(500).send(error);
   }
 });
-
 
 // Adicione essa linha para servir arquivos estáticos da pasta public
 app.use(express.static(path.join(__dirname, 'public')));
